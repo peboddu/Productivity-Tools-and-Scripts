@@ -1,0 +1,13 @@
+Setup SSH Tunnel to remote server and use that for proxying
+Usage: ssh -D <ANY_PORT> <username>@<server_name> # ANY_PORT > 1024
+Example: ssh -D 5601 vegorant@slc-aln1-1-a
+In Firefox, configure Network tab to use locahost:5601 as Manual Proxy (socks5)
+
+
+
+Local="vegorant@VEGORANT-KCC0F:8888"
+Remote="vegorant@vegorant-lnx:8888"
+ssh -R ${Remote}:${Local} vegorant-lnx.cisco.com
+
+ssh -R vegorant-lnx.cisco.com:8089:VEGORANT-KCC0F:8080 vegorant@vegorant-lnx.cisco.com
+ssh -L 3333:localhost:8089 vegorant@vegorant-lnx.cisco.com
