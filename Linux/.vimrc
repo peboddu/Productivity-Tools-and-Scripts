@@ -23,6 +23,8 @@ map <C-T> :TlistOpen<CR>
 autocmd bufnewfile *.py 0r /users/vegorant/public_html/templates/cli.silo.py
 autocmd bufnewfile *.pl 0r /users/vegorant/public_html/templates/cli.tpl
 "autocmd bufnewfile *.py 0r /users/vegorant/public_html/templates/cli.tpy
+autocmd FileType python setlocal foldmethod=indent
+autocmd FileType css setlocal foldmethod=indent shiftwidth=2 tabstop=2 expandtab
 :nmap  :set number!<CR>
 :set pastetoggle=<f5>
 " set runtimepath+=~/.vim/bundle/nerdtree
