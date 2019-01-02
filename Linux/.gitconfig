@@ -1,0 +1,15 @@
+[color "status"]
+  added = green
+  changed = red bold
+  untracked = magenta bold
+
+[color "branch"]
+  remote = yellow
+[color]
+    ui = auto
+    status = auto
+[user]
+    name = FirstName LastName
+    email = vegorant@domain.com
+[http]
+    sslverify = false

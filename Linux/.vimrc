@@ -5,6 +5,7 @@ set ai
 " Auto complete matching names
 set wildmenu
 " Incremental Search
+set hlsearch
 set incsearch
 set tabstop=4
 set shiftwidth=4
