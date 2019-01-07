@@ -9,7 +9,11 @@
     ui = auto
     status = auto
 [user]
-    name = FirstName LastName
-    email = vegorant@domain.com
+    name = <>
+    email = <>
 [http]
     sslverify = false
+[push]
+    default = current
+[credential]
+    helper = "cache --timeout=9999999"
