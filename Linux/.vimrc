@@ -7,6 +7,7 @@ set wildmenu
 " Incremental Search
 set hlsearch
 set incsearch
+set ruler
 set tabstop=4
 set shiftwidth=4
 set expandtab
