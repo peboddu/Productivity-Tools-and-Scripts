@@ -1,0 +1,19 @@
+sudo bash
+yum install -y NetworkManager
+
+## Network Teaming/Bonding for Aggregate Links between multiple systems
+    nmcli con add type team con-name lateam0 ifname lateam0 config '{"runner" : {"name" : "activebackup"}}'
+    nmcli con mod lateam0 ipv4.addresses '192.168.0.10/24'
+    nmcli con mod lateam0 ipv4.method manual
+    teamdctl lateam0 state
+    nmcli con add type team-slave con-name lateam0-port1 ifname enp0s8 master lateam0
+    nmcli con add type team-slave con-name lateam0-port2 ifname enp0s9 master lateam0
+    nmcli con up lateam0-port1
+    nmcli con up lateam0-port2
+    nmcli con up lateam0
+
+    nmcli con down lateam0-port1
+    nmcli con up lateam0
+
+## Configure & Troubleshoot IPv6 Addresses
+## Route IP Traffic and Create Static Routes
