@@ -1,0 +1,17 @@
+[Unit]
+Description=WSGI Service for AppMon Transaction History
+Documentation=http://real-url-for-documentation.com
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/users/vegorant/um-appmon_trans_history/venv/bin/gunicorn -c /users/vegorant/um-appmon_trans_history/config.py main:app
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=always
+RestartSec=3
+User=<>
+Group=<>
+
+[Install]
+WantedBy=multi-user.target
