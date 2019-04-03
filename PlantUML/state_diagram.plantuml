@@ -1,0 +1,72 @@
+@startuml
+title ESP to UM Discovery
+
+
+start
+
+if (What would you\nlike to do?) then (Discovery)
+    if (UI or CLI?) then (CLI)
+    (B)
+    detach
+    else (UI)
+        :Open CI in ESP UI;
+        while (Is CI Monitored?) is (No)
+            :Add Monitor;
+        endwhile (Yes)
+        :Update UM Primary Monitor;
+        :Save Record;
+        (A)
+        detach
+        (A)
+        :Select UM Discovery Template;
+        :Save Record;
+        :Wait for discovery to complete;
+        if (Device discovered in SL?) then (Yes)
+            while (UM Fields updated?) is (No)
+                :Clear UM Discovery Template;
+                :Save the record;
+                (A)
+                detach
+            endwhile (Yes)
+        else (No)
+            :Check the discovery session\nlogs in the stack;
+        endif
+    endif
+else (Rediscovery)
+    (B)
+    detach
+    (B)
+    if (Can run um-automation?) then (Yes)
+        if (Is CI Monitored?) then (Yes)
+            :perl um-automation.pl\n - -action=discover\n - -ci_name='ci_name'\n - -sys_class_name='sys_class_name'\n - -template_name='template_name'\n - -stack='stack';
+        else (No)
+            :perl um-automation.pl\n - -action=discover\n - -ci_name='ci_name'\n - -sys_class_name='sys_class_name'\n - -template_name='template_name'\n - -stack='stack\n - -add_monitor='priority';
+        endif
+    else (No)
+        if (Is CI Monitored?) then (Yes)
+            (C)
+            detach
+            (C)
+            :snow_hosts - -action=show -n name='ci_name'\n - -class=server.linux\n - -display=um_primary_monitoring_system,\n\t\tum_correlation,\n\t\tum_region,\n\t\tum_discovery_template\n - -format=json > template.json;
+            :Clear um_region and um_correlation;
+            :Set um_discovery_template;
+            :snow_hosts - -action=update\n - -file=template.json;
+        else (No)
+            :Add monitor using esp-cli\nRefer [[https://cisco.jiveon.com/docs/DOC-1815739#jive_content_id_Maintaining_Hostmons]];
+            (C)
+            detach
+        endif
+    endif
+    if (Device discovered in SL?) then (Yes)
+        if (UM fields updated?) then (No)
+            (B)
+            detach
+        else (Yes)
+        endif
+    else (No)
+        :Check the discovery session\nlogs in the stack;
+    endif
+endif
+
+stop
+@enduml
