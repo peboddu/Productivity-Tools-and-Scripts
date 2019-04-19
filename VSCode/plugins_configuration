@@ -1,9 +1,12 @@
 RemoteFile edit with VSCode on Windows:
 STEP1:
     On VM:
-        sudo wget -O /usr/local/bin/rmate https://raw.github.com/aurora/rmate/master/rmate
-        sudo chmod a+x /usr/local/bin/rmate
+        $ sudo wget -O /usr/local/bin/rmate https://raw.github.com/aurora/rmate/master/rmate
+        $ sudo chmod a+x /usr/local/bin/rmate
 STEP2:
     In Windows VSCode:
         Ctrl + P > '>Remote: start server'
-        Win + R > ssh -R 52698:localhost:52698 vagrant@192.168.220.11
+    Win + R > ssh -R 52698:localhost:52698 vagrant@192.168.220.11
+STEP3:
+    Switch to VM 
+        $ rmate <FILE_NAME>
